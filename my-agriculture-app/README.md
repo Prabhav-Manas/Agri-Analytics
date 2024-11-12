@@ -18,7 +18,7 @@ This project is a web application for analyzing agricultural data over the India
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/my-agriculture-app.git
+   git clone https://github.com/Prabhav-Manas/Agri-Analytics.git
 
    ```
 
