@@ -1,0 +1,13 @@
+/* In your global CSS file or a CSS module */
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9; /* light color for striped effect */
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f1f1; /* slightly darker on hover */
+}
+
+.custom-table td,
+.custom-table th {
+  border: 1px solid #ddd;
+}

@@ -1,0 +1,17 @@
+.nav-tab {
+  background-color: darkblue;
+  color: #fff;
+  border-radius: 0 !important;
+}
+
+.tab-text:hover {
+  background-color: aquamarine;
+  color: #000;
+  border-radius: 0 !important;
+}
+
+.tab-text.focused {
+  color: orangered;
+  background-color: #fff;
+  border-radius: 0 !important;
+}
