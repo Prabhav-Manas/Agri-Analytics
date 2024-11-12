@@ -23,25 +23,41 @@ This project is a web application for analyzing agricultural data over the India
    ```
 
 2. Navigate to project directory:
+
+   ```bash
    cd my-agriculture-app
+   ```
 
 3. Install the necessary packages:
+   ```bash
    npm install
+   ```
 
 # Dependencies
 
 To ensure the project functions correctly, install the following dependencies:
 
 1. Mantine Core for UI components:
+
+   ```bash
    npm install @mantine/core
+   ```
 
 2. Mantine Hooks for custom hooks:
+
+   ```bash
    npm install @mantine/hooks
+   ```
 
 3. React Router DOM for routing:
+   ```bash
    npm install react-router-dom
+   ```
 
 # Running the Project
 
 To start the development server and run the application:
+
+```bash
 npm run dev
+```
