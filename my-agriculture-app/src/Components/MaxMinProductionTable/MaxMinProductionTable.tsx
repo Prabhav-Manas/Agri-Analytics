@@ -2,7 +2,7 @@ import { Container, Table, Center, Title } from "@mantine/core";
 import { agricultureData } from "../../data";
 
 const MaxMinProductionTable = () => {
-  // Group data by year and calculate max/min production
+  // ---Group agriculture data by year, extracting each item's Year, Crop Name, and Crop Production fields.---
   const yearGroupedData = agricultureData.reduce((acc, item) => {
     const {
       Year,
@@ -10,31 +10,37 @@ const MaxMinProductionTable = () => {
       "Crop Production (UOM:t(Tonnes))": CropProduction,
     } = item;
 
+    // ---Set productionValue to 0 if CropProduction is an empty string; otherwise, use the original CropProduction value.---
     const productionValue =
       typeof CropProduction === "string" && CropProduction === ""
         ? 0
         : CropProduction;
 
-    if (!acc[Year]) acc[Year] = [];
-    acc[Year].push({
-      CropName,
-      CropProduction: productionValue as number,
-    });
+    // ---If year does not exist in accumulator object then create an empty array, else add the current crop data to the array for the corresponding year.---
+    if (!acc[Year]) {
+      acc[Year] = [];
+    } else {
+      acc[Year].push({ CropName, CropProduction: productionValue as number });
+    }
     return acc;
   }, {} as Record<string, { CropName: string; CropProduction: number }[]>);
 
-  // Calculate max and min production for each year
+  // ---Iterate through each year in the yearGroupedData object---
   const maxMinProduction = Object.keys(yearGroupedData).map((year) => {
+    // ---Get the list of crops for the current year---
     const crops = yearGroupedData[year];
 
+    // ---Find the crop with the maximum production in the current year---
     const maxCrop = crops.reduce((prev, curr) =>
       curr.CropProduction > prev.CropProduction ? curr : prev
     );
 
+    // ---Find the crop with the minimum production in the current year---
     const minCrop = crops.reduce((prev, curr) =>
       curr.CropProduction < prev.CropProduction ? curr : prev
     );
 
+    // ---Return the year and the names of the max and min crops---
     return {
       Year: year,
       MaxCrop: maxCrop.CropName,
@@ -48,6 +54,7 @@ const MaxMinProductionTable = () => {
         Maximum & Minimum Crop Production By Year
       </Title>
       <Center>
+        {/* Table Starts */}
         <Table
           striped
           highlightOnHover
@@ -73,6 +80,7 @@ const MaxMinProductionTable = () => {
             ))}
           </tbody>
         </Table>
+        {/* Table Ends */}
       </Center>
     </Container>
   );

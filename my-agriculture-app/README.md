@@ -13,6 +13,16 @@ This project is a web application for analyzing agricultural data over the India
 - [Dependencies](#dependencies)
 - [Running the Project](#running-the-project)
 
+## Screenshots
+
+### Maximum and Minimum Production of Crops Table
+
+![MaxMinProductionTable](public/images/maxMin-production.png)
+
+### Average Yield and Cultivation Area of Crops Table
+
+![AverageYieldAreaTable](public/images/avgYield-area.png)
+
 ## Installation Instructions
 
 1. Clone the repository:
@@ -33,7 +43,7 @@ This project is a web application for analyzing agricultural data over the India
    npm install
    ```
 
-# Dependencies
+## Dependencies
 
 To ensure the project functions correctly, install the following dependencies:
 
@@ -54,7 +64,7 @@ To ensure the project functions correctly, install the following dependencies:
    npm install react-router-dom
    ```
 
-# Running the Project
+## Running the Project
 
 To start the development server and run the application:
 

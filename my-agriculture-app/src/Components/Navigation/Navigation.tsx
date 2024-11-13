@@ -1,20 +1,32 @@
 import { Flex, Tabs, Title } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // ---Use this to track URL changes---
   const firstTabRef = useRef<HTMLButtonElement | null>(null);
   const secondTabRef = useRef<HTMLButtonElement | null>(null);
   const [focusedTab, setFocusedTab] = useState<string>("first");
 
   useEffect(() => {
-    // Focus the first tab on mount
-    if (firstTabRef.current) {
+    // ---Check the current route and set focus to the appropriate tab---
+    if (location.pathname === "/") {
+      setFocusedTab("first");
+    } else if (location.pathname === "/avgYieldCultivationArea") {
+      setFocusedTab("second");
+    }
+  }, [location.pathname]); // ---Runs whenever the location changes---
+
+  useEffect(() => {
+    // ---Focus the appropriate tab based on the focusedTab state---
+    if (focusedTab === "first" && firstTabRef.current) {
       firstTabRef.current.focus();
+    } else if (focusedTab === "second" && secondTabRef.current) {
+      secondTabRef.current.focus();
     }
 
-    // Prevent focus loss when clicking outside
+    // ---Prevent focus loss when clicking outside---
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         firstTabRef.current &&
@@ -22,7 +34,7 @@ const Navigation = () => {
         secondTabRef.current &&
         !secondTabRef.current.contains(event.target as Node)
       ) {
-        // Prevent losing focus on the currently focused tab
+        // ---Prevent losing focus on the currently focused tab---
         if (focusedTab === "first" && firstTabRef.current) {
           firstTabRef.current.focus();
         } else if (focusedTab === "second" && secondTabRef.current) {
@@ -30,35 +42,37 @@ const Navigation = () => {
         }
       }
     };
+
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [focusedTab]);
+  }, [focusedTab, location.pathname]);
 
-  // Handler for switching focus when a tab is clicked
+  // ---Handler for switching focus when a tab is clicked---
   const handleTabFocus = (tabValue: string) => {
     setFocusedTab(tabValue);
+    // ---Save the focused tab to localStorage---
+    localStorage.setItem("focusedTab", tabValue);
   };
 
   return (
     <Tabs
       className="nav-tab"
-      value={focusedTab} // Ensure the value matches the focusedTab state
+      value={focusedTab}
       onChange={(value) => {
         if (value === "first") navigate("/");
         if (value === "second") navigate("/avgYieldCultivationArea");
-        // Update the focused tab when switching tabs
-        handleTabFocus(value as string); // Type assertion to ensure value is treated as a string
+        handleTabFocus(value as string);
       }}
     >
       <Flex
-        direction={{ base: "column", sm: "row" }} // Stack vertically on mobile, horizontally on small screens and up
+        direction={{ base: "column", sm: "row" }}
         justify="space-between"
         align="center"
-        gap={{ base: "xs", sm: "lg" }} // Adjust gap based on screen size
-        wrap="wrap" // Ensure items wrap on smaller screens
+        gap={{ base: "xs", sm: "lg" }}
+        wrap="wrap"
       >
         <Title
           order={2}
@@ -67,10 +81,7 @@ const Navigation = () => {
         >
           Agriculture Analytics
         </Title>
-        <Tabs.List
-          justify="flex-end"
-          style={{ flex: 1 }} // Ensure the list takes available space
-        >
+        <Tabs.List justify="flex-end" style={{ flex: 1 }}>
           <Tabs.Tab
             className={`tab-text ${focusedTab === "first" ? "focused" : ""}`}
             value="first"
