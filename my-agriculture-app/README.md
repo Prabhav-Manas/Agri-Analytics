@@ -12,6 +12,7 @@ This project is a web application for analyzing agricultural data over the India
 - [Installation Instructions](#installation-instructions)
 - [Dependencies](#dependencies)
 - [Running the Project](#running-the-project)
+- [Screenshots](#screenshots)
 
 ## Screenshots
 
